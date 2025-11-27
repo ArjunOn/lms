@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title} ?: 'Labour Management System'">Labour Management System</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <header>
+        <nav aria-label="Main Navigation">
+            <ul>
+                <li><a th:href="@{/}">Dashboard</a></li>
+                <li><a th:href="@{/projects}">Projects</a></li>
+                <li><a th:href="@{/labours}">Labours</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <div th:replace="${content}">
+            <!-- Page content goes here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Labour Management System</p>
+    </footer>
+</body>
+</html>

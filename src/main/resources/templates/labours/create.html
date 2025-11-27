@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(title='Add Labour', content=~{::section})}">
+<section>
+    <h2>Add New Labour</h2>
+    <form th:action="@{/labours/create}" th:object="${labour}" method="post">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" th:field="*{name}" required>
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error">Name Error</span>
+        </div>
+
+        <div class="form-group">
+            <label for="contactNumber">Contact Number:</label>
+            <input type="text" id="contactNumber" th:field="*{contactNumber}">
+        </div>
+
+        <div class="form-group">
+            <label for="hourlyRate">Hourly Rate:</label>
+            <input type="number" step="0.01" id="hourlyRate" th:field="*{hourlyRate}">
+        </div>
+
+        <button type="submit" class="button">Add Labour</button>
+    </form>
+</section>
+
+</html>

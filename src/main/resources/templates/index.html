@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(title='Dashboard', content=~{::section})}">
+<section>
+    <h1>Dashboard</h1>
+    <p>Welcome to the Labour Management System.</p>
+    <div class="dashboard-actions">
+        <a th:href="@{/projects/create}" class="button">Create New Project</a>
+        <a th:href="@{/labours/create}" class="button">Add New Labour</a>
+    </div>
+</section>
+
+</html>

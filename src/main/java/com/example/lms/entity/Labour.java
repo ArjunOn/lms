@@ -1,0 +1,88 @@
+package com.example.lms.entity;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Table(name = "labours")
+public class Labour {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank(message = "Name is required")
+    private String name;
+
+    private String contactNumber;
+
+    private Double hourlyRate;
+
+    @ManyToMany
+    @JoinTable(name = "labour_skills", joinColumns = @JoinColumn(name = "labour_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
+    private Set<Skill> skills;
+
+    @OneToMany(mappedBy = "labour")
+    private List<Assignment> assignments;
+
+    @OneToMany(mappedBy = "labour")
+    private List<Rating> ratings;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public Double getHourlyRate() {
+        return hourlyRate;
+    }
+
+    public void setHourlyRate(Double hourlyRate) {
+        this.hourlyRate = hourlyRate;
+    }
+
+    public Set<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(Set<Skill> skills) {
+        this.skills = skills;
+    }
+
+    public List<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
+}

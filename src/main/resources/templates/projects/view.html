@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(title='Project Details', content=~{::section})}">
+<section>
+    <h2 th:text="${project.name}">Project Name</h2>
+    <p th:text="${project.description}">Description</p>
+    <p><strong>Start Date:</strong> <span th:text="${project.startDate}"></span></p>
+    <p><strong>End Date:</strong> <span th:text="${project.endDate}"></span></p>
+
+    <div class="project-skills">
+        <h3>Required Skills</h3>
+        <ul>
+            <li th:each="skill : ${project.requiredSkills}" th:text="${skill.name}">Skill</li>
+        </ul>
+        <form th:action="@{/projects/{id}/skills(id=${project.id})}" method="post">
+            <input type="text" name="skillName" placeholder="Add Required Skill" required>
+            <button type="submit" class="button">Add Skill</button>
+        </form>
+    </div>
+
+    <h3>Assignments</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Labour</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="assignment : ${project.assignments}">
+                <td th:text="${assignment.labour.name}">Labour Name</td>
+                <td th:text="${assignment.startDate}">Start</td>
+                <td th:text="${assignment.endDate}">End</td>
+                <td th:text="${assignment.status}">Active</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="recommendations" th:if="${recommendations != null}">
+        <h3>Recommended Labours (Based on Skills)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Hourly Rate</th>
+                    <th>Skills</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="labour : ${recommendations}">
+                    <td th:text="${labour.name}">Name</td>
+                    <td th:text="${labour.hourlyRate}">Rate</td>
+                    <td><span th:each="s : ${labour.skills}" th:text="${s.name} + ' '"></span></td>
+                    <td>
+                        <form th:action="@{/projects/{id}/assign(id=${project.id})}" method="post">
+                            <input type="hidden" name="labourId" th:value="${labour.id}">
+                            <button type="submit" class="button">Assign</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="manual-assignment">
+        <h3>Manual Assignment</h3>
+        <form th:action="@{/projects/{id}/assign(id=${project.id})}" method="post">
+            <select name="labourId" required>
+                <option value="">Select Labour</option>
+                <option th:each="labour : ${allLabours}" th:value="${labour.id}" th:text="${labour.name}"></option>
+            </select>
+            <button type="submit" class="button">Assign</button>
+        </form>
+    </div>
+</section>
+
+</html>

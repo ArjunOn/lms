@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(title='Labours', content=~{::section})}">
+<section>
+    <h2>Labours</h2>
+    <a th:href="@{/labours/create}" class="button">Add New Labour</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Hourly Rate</th>
+                <th>Skills</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="labour : ${labours}">
+                <td th:text="${labour.id}">1</td>
+                <td th:text="${labour.name}">John Doe</td>
+                <td th:text="${labour.contactNumber}">1234567890</td>
+                <td th:text="${labour.hourlyRate}">20.0</td>
+                <td>
+                    <span th:each="skill : ${labour.skills}" th:text="${skill.name} + ' '">Plumbing </span>
+                </td>
+                <td>
+                    <form th:action="@{/labours/{id}/skills(id=${labour.id})}" method="post" style="display:inline;">
+                        <input type="text" name="skillName" placeholder="Add Skill" required>
+                        <button type="submit">Add</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+</html>
