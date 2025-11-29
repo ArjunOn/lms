@@ -11,4 +11,10 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
     List<Assignment> findByProjectId(Long projectId);
 
     List<Assignment> findByLabourId(Long labourId);
+
+    // Check if labour is already assigned to a specific project
+    boolean existsByProjectIdAndLabourIdAndStatus(Long projectId, Long labourId, String status);
+
+    // Find active assignments for a labour
+    List<Assignment> findByLabourIdAndStatus(Long labourId, String status);
 }

@@ -28,4 +28,25 @@ public class ProjectService {
     public void deleteProject(Long id) {
         projectRepository.deleteById(id);
     }
+
+    @Autowired
+    private com.example.lms.repository.SkillRepository skillRepository;
+
+    public void addSkillToProject(Long projectId, String skillName) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new RuntimeException("Project not found"));
+
+        com.example.lms.entity.Skill skill = skillRepository.findByName(skillName)
+                .orElseGet(() -> {
+                    com.example.lms.entity.Skill newSkill = new com.example.lms.entity.Skill();
+                    newSkill.setName(skillName);
+                    return skillRepository.save(newSkill);
+                });
+
+        if (project.getRequiredSkills() == null) {
+            project.setRequiredSkills(new java.util.HashSet<>());
+        }
+        project.getRequiredSkills().add(skill);
+        projectRepository.save(project);
+    }
 }

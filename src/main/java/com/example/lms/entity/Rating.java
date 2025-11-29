@@ -1,5 +1,6 @@
 package com.example.lms.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -13,10 +14,12 @@ public class Rating {
 
     @ManyToOne
     @JoinColumn(name = "labour_id", nullable = false)
+    @JsonBackReference("labour-ratings")
     private Labour labour;
 
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({ "assignments", "requiredSkills" })
     private Project project;
 
     @Min(1)

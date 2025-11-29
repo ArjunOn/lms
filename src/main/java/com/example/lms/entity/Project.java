@@ -1,5 +1,6 @@
 package com.example.lms.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
@@ -21,7 +22,13 @@ public class Project {
     private LocalDate startDate;
     private LocalDate endDate;
 
+    @Enumerated(EnumType.STRING)
+    private ProjectStatus status = ProjectStatus.NOT_STARTED;
+
+    private Double budget;
+
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @JsonManagedReference("project-assignments")
     private List<Assignment> assignments;
 
     @ManyToMany
@@ -83,5 +90,21 @@ public class Project {
 
     public void setRequiredSkills(Set<Skill> requiredSkills) {
         this.requiredSkills = requiredSkills;
+    }
+
+    public ProjectStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ProjectStatus status) {
+        this.status = status;
+    }
+
+    public Double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Double budget) {
+        this.budget = budget;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.lms.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -12,10 +13,12 @@ public class Assignment {
 
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
+    @JsonBackReference("project-assignments")
     private Project project;
 
     @ManyToOne
     @JoinColumn(name = "labour_id", nullable = false)
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties("assignments")
     private Labour labour;
 
     private LocalDate startDate;

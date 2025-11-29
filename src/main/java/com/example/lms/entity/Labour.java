@@ -1,5 +1,6 @@
 package com.example.lms.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.util.List;
@@ -24,9 +25,11 @@ public class Labour {
     private Set<Skill> skills;
 
     @OneToMany(mappedBy = "labour")
+    @JsonManagedReference("labour-assignments")
     private List<Assignment> assignments;
 
     @OneToMany(mappedBy = "labour")
+    @JsonManagedReference("labour-ratings")
     private List<Rating> ratings;
 
     // Getters and Setters

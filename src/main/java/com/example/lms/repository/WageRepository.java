@@ -9,4 +9,10 @@ import java.util.List;
 @Repository
 public interface WageRepository extends JpaRepository<Wage, Long> {
     List<Wage> findByAssignmentId(Long assignmentId);
+
+    List<Wage> findByAssignment_LabourId(Long labourId);
+
+    List<Wage> findByAssignment_ProjectId(Long projectId);
+
+    List<Wage> findByStatus(com.example.lms.entity.WageStatus status);
 }

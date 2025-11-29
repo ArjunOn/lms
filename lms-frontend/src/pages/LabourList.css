@@ -1,0 +1,66 @@
+.labour-form {
+    margin-bottom: var(--spacing-xl);
+}
+
+.labour-form h3 {
+    margin-bottom: var(--spacing-md);
+}
+
+.labours-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.labour-item {
+    padding: var(--spacing-lg);
+}
+
+.labour-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+.labour-item-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.labour-rate {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.labour-contact {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.labour-skills-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.labour-skills-section strong {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.add-skill-form {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-xs);
+}
+
+.add-skill-form input {
+    flex: 1;
+    min-width: 120px;
+}
