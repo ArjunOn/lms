@@ -29,6 +29,20 @@ public class LabourService {
     }
 
     public Labour saveLabour(Labour labour) {
+        // Process skills - find existing or create new
+        if (labour.getSkills() != null && !labour.getSkills().isEmpty()) {
+            Set<Skill> processedSkills = new HashSet<>();
+            for (Skill skill : labour.getSkills()) {
+                Skill existingSkill = skillRepository.findByName(skill.getName())
+                        .orElseGet(() -> {
+                            Skill newSkill = new Skill();
+                            newSkill.setName(skill.getName());
+                            return skillRepository.save(newSkill);
+                        });
+                processedSkills.add(existingSkill);
+            }
+            labour.setSkills(processedSkills);
+        }
         return labourRepository.save(labour);
     }
 

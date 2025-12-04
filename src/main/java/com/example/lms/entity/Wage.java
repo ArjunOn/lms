@@ -1,10 +1,14 @@
 package com.example.lms.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@Table(name = "wages")
+@Table(name = "wages", uniqueConstraints = {
+        @UniqueConstraint(columnNames = { "assignment_id", "calculated_date" })
+})
 public class Wage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +17,10 @@ public class Wage {
     @ManyToOne
     @JoinColumn(name = "assignment_id", nullable = false)
     private Assignment assignment;
+
+    @OneToMany(mappedBy = "wage")
+    @JsonIgnoreProperties("wage")
+    private List<Payment> payments;
 
     private LocalDate date;
     private Double hoursWorked;
@@ -106,5 +114,13 @@ public class Wage {
 
     public void setSettledDate(LocalDate settledDate) {
         this.settledDate = settledDate;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
     }
 }

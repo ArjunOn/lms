@@ -81,6 +81,18 @@ public class AssignmentRestController {
         return ResponseEntity.ok(saved);
     }
 
+    @PutMapping("/{id}/complete")
+    public ResponseEntity<Assignment> completeAssignment(@PathVariable Long id) {
+        Assignment assignment = assignmentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Assignment not found"));
+
+        assignment.setStatus("COMPLETED");
+        assignment.setEndDate(LocalDate.now());
+
+        Assignment updated = assignmentRepository.save(assignment);
+        return ResponseEntity.ok(updated);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAssignment(@PathVariable Long id) {
         assignmentRepository.deleteById(id);

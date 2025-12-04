@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { projectService } from '../services';
+import Modal from '../components/Modal';
 import './ProjectForm.css';
 
 function ProjectForm() {
@@ -10,10 +11,13 @@ function ProjectForm() {
         description: '',
         startDate: '',
         endDate: '',
+        budget: '',
+        status: 'NOT_STARTED',
         requiredSkills: [],
     });
     const [currentSkill, setCurrentSkill] = useState('');
     const [loading, setLoading] = useState(false);
+    const [modal, setModal] = useState({ isOpen: false, type: 'info', title: '', message: '' });
 
     const handleChange = (e) => {
         setFormData({
@@ -27,14 +31,42 @@ function ProjectForm() {
         setLoading(true);
 
         try {
-            await projectService.create(formData);
+            const projectData = {
+                ...formData,
+                budget: formData.budget ? parseFloat(formData.budget) : null
+            };
+            console.log('Submitting project data:', projectData);
+            await projectService.create(projectData);
             navigate('/projects');
         } catch (err) {
-            alert('Failed to create project');
             console.error('Error creating project:', err);
+            console.error('Error response:', err.response?.data);
+            const errorMessage = err.response?.data?.message || err.message || 'Failed to create project. Please try again.';
+            setModal({
+                isOpen: true,
+                type: 'error',
+                title: 'Project Creation Failed',
+                message: errorMessage
+            });
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleAddSkill = () => {
+        if (!currentSkill.trim()) return;
+        setFormData({
+            ...formData,
+            requiredSkills: [...formData.requiredSkills, { name: currentSkill.trim() }]
+        });
+        setCurrentSkill('');
+    };
+
+    const handleRemoveSkill = (index) => {
+        setFormData({
+            ...formData,
+            requiredSkills: formData.requiredSkills.filter((_, i) => i !== index)
+        });
     };
 
     return (
@@ -106,6 +138,41 @@ function ProjectForm() {
                         </div>
                     </div>
 
+                    <div className="form-row">
+                        <div className="form-group">
+                            <label htmlFor="budget" className="form-label">
+                                Budget ($)
+                            </label>
+                            <input
+                                type="number"
+                                id="budget"
+                                name="budget"
+                                className="form-input"
+                                value={formData.budget}
+                                onChange={handleChange}
+                                placeholder="Enter project budget"
+                                min="0"
+                                step="0.01"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="status" className="form-label">
+                                Initial Status
+                            </label>
+                            <select
+                                id="status"
+                                name="status"
+                                className="form-input"
+                                value={formData.status}
+                                onChange={handleChange}
+                            >
+                                <option value="NOT_STARTED">Not Started</option>
+                                <option value="IN_PROGRESS">In Progress</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div className="form-group">
                         <label className="form-label">Required Skills</label>
                         <div className="skills-input-container">
@@ -157,6 +224,14 @@ function ProjectForm() {
                     </div>
                 </form>
             </div>
+
+            <Modal
+                isOpen={modal.isOpen}
+                onClose={() => setModal({ ...modal, isOpen: false })}
+                title={modal.title}
+                message={modal.message}
+                type={modal.type}
+            />
         </div>
     );
 }

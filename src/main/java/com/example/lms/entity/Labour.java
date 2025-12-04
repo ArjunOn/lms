@@ -1,6 +1,6 @@
 package com.example.lms.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.util.List;
@@ -20,16 +20,16 @@ public class Labour {
 
     private Double hourlyRate;
 
-    @ManyToMany
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "labour_skills", joinColumns = @JoinColumn(name = "labour_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private Set<Skill> skills;
 
     @OneToMany(mappedBy = "labour")
-    @JsonManagedReference("labour-assignments")
+    @JsonIgnoreProperties("labour")
     private List<Assignment> assignments;
 
     @OneToMany(mappedBy = "labour")
-    @JsonManagedReference("labour-ratings")
+    @JsonIgnoreProperties("labour")
     private List<Rating> ratings;
 
     // Getters and Setters

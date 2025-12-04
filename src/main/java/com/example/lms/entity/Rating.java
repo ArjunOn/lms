@@ -1,12 +1,13 @@
 package com.example.lms.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 
 @Entity
-@Table(name = "ratings")
+@Table(name = "ratings", uniqueConstraints = {
+        @UniqueConstraint(columnNames = { "labour_id", "project_id" })
+})
 public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +15,7 @@ public class Rating {
 
     @ManyToOne
     @JoinColumn(name = "labour_id", nullable = false)
-    @JsonBackReference("labour-ratings")
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({ "assignments", "ratings", "skills" })
     private Labour labour;
 
     @ManyToOne

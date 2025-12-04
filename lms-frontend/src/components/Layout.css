@@ -111,3 +111,17 @@
         text-align: center;
     }
 }
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-left: var(--spacing-lg);
+    padding-left: var(--spacing-lg);
+    border-left: 1px solid var(--glass-border);
+}
+
+.user-name {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}

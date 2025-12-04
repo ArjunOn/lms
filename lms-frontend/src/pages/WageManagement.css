@@ -1,0 +1,61 @@
+.wage-management {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.wages-table {
+    overflow-x: auto;
+}
+
+.wages-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.wages-table th {
+    text-align: left;
+    padding: 1rem;
+    background: var(--glass-bg);
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-bottom: 2px solid var(--glass-border);
+}
+
+.wages-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.wages-table tr:hover {
+    background: var(--glass-bg);
+}
+
+.amount {
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.text-muted {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+    .filter-controls {
+        flex-wrap: wrap;
+    }
+
+    .wages-table {
+        font-size: 0.875rem;
+    }
+
+    .wages-table th,
+    .wages-table td {
+        padding: 0.75rem 0.5rem;
+    }
+}

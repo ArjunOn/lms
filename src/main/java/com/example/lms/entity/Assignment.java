@@ -1,6 +1,6 @@
 package com.example.lms.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -13,7 +13,7 @@ public class Assignment {
 
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
-    @JsonBackReference("project-assignments")
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({ "assignments", "requiredSkills" })
     private Project project;
 
     @ManyToOne

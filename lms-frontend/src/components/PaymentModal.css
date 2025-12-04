@@ -1,0 +1,97 @@
+.payment-modal {
+    max-width: 450px;
+    width: 90%;
+}
+
+.payment-amount {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-md);
+}
+
+.payment-amount .label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.payment-amount .value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.payment-tabs {
+    display: flex;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 0.75rem;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-secondary);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.tab-btn:hover:not(.active) {
+    color: var(--text-primary);
+}
+
+.qr-container {
+    background: white;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    display: inline-block;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.upi-section {
+    text-align: center;
+}
+
+.scan-instruction {
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.upi-details {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.cash-section .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.cash-section textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    resize: vertical;
+}
+
+.btn-block {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+}

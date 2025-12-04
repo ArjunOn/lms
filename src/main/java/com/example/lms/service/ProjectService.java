@@ -21,16 +21,30 @@ public class ProjectService {
         return projectRepository.findById(id);
     }
 
+    @Autowired
+    private com.example.lms.repository.SkillRepository skillRepository;
+
     public Project saveProject(Project project) {
+        // Process skills - find existing or create new
+        if (project.getRequiredSkills() != null && !project.getRequiredSkills().isEmpty()) {
+            java.util.Set<com.example.lms.entity.Skill> processedSkills = new java.util.HashSet<>();
+            for (com.example.lms.entity.Skill skill : project.getRequiredSkills()) {
+                com.example.lms.entity.Skill existingSkill = skillRepository.findByName(skill.getName())
+                        .orElseGet(() -> {
+                            com.example.lms.entity.Skill newSkill = new com.example.lms.entity.Skill();
+                            newSkill.setName(skill.getName());
+                            return skillRepository.save(newSkill);
+                        });
+                processedSkills.add(existingSkill);
+            }
+            project.setRequiredSkills(processedSkills);
+        }
         return projectRepository.save(project);
     }
 
     public void deleteProject(Long id) {
         projectRepository.deleteById(id);
     }
-
-    @Autowired
-    private com.example.lms.repository.SkillRepository skillRepository;
 
     public void addSkillToProject(Long projectId, String skillName) {
         Project project = projectRepository.findById(projectId)

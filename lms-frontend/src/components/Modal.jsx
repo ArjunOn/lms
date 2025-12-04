@@ -1,18 +1,28 @@
 import { useEffect } from 'react';
 import './Modal.css';
 
-function Modal({ isOpen, onClose, title, message, type = 'info', details = null }) {
+function Modal({ isOpen, onClose, title, message, type = 'info', details = null, children }) {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
+
+            // Add keyboard event listener
+            const handleKeyDown = (e) => {
+                if (e.key === 'Escape' || e.key === 'Enter') {
+                    onClose();
+                }
+            };
+
+            document.addEventListener('keydown', handleKeyDown);
+
+            return () => {
+                document.body.style.overflow = 'unset';
+                document.removeEventListener('keydown', handleKeyDown);
+            };
         } else {
             document.body.style.overflow = 'unset';
         }
-
-        return () => {
-            document.body.style.overflow = 'unset';
-        };
-    }, [isOpen]);
+    }, [isOpen, onClose]);
 
     if (!isOpen) return null;
 
@@ -28,6 +38,17 @@ function Modal({ isOpen, onClose, title, message, type = 'info', details = null 
                 return 'ℹ';
         }
     };
+
+    // If children provided, render custom content
+    if (children) {
+        return (
+            <div className="modal-overlay" onClick={onClose}>
+                <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+                    {children}
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="modal-overlay" onClick={onClose}>

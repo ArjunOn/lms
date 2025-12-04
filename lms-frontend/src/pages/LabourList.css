@@ -14,6 +14,17 @@
 
 .labour-item {
     padding: var(--spacing-lg);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-lg);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.labour-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-color: var(--primary);
 }
 
 .labour-item-header {
@@ -28,6 +39,23 @@
     font-size: 1.25rem;
 }
 
+.rating-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.rating-stars {
+    color: #fbbf24;
+    font-weight: 600;
+}
+
+.rating-count {
+    color: var(--text-secondary);
+}
+
 .labour-rate {
     font-size: 1.125rem;
     font-weight: 700;
@@ -40,6 +68,61 @@
     padding-bottom: var(--spacing-md);
     border-bottom: 1px solid var(--glass-border);
 }
+
+.labour-overview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.overview-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    transition: all 0.3s ease;
+}
+
+.overview-stat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent);
+}
+
+.stat-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--primary);
+    /* Better visibility than text-primary */
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
 
 .labour-skills-section {
     display: flex;
